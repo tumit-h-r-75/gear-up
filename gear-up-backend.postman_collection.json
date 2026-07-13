@@ -1,0 +1,2103 @@
+{
+  "info": {
+    "_postman_id": "a77dc53b-381c-4e82-a4b7-7872cfc6ea03",
+    "name": "gear-up-backend",
+    "description": "# GearUp API\n\nGearUp is a RESTful backend API for a Sports & Outdoor Gear Rental platform.\n\n## Roles\n\n- Customer\n    \n- Provider\n    \n- Admin\n    \n\n## Authentication\n\nJWT Bearer Token\n\nAuthorization Header\n\nBearer\n\n## Base URL\n\nDevelopment\n\n[http://localhost:5000/api](http://localhost:5000/api)\n\nProduction\n\n[StartFragmenthttps://gear-up-backend-5b6a.onrender.com/apiEndFragment<br>](https://your-render-url.onrender.com/api)\n\n## Main Features\n\n- User Authentication\n    \n- Role Based Authorization\n    \n- Gear Management\n    \n- Category Management\n    \n- Rental Orders\n    \n- Stripe Payment Integration\n    \n- Reviews\n    \n- Admin Dashboard\n    \n\n## Tech Stack\n\n- Node.js\n    \n- Express.js\n    \n- TypeScript\n    \n- PostgreSQL\n    \n- Prisma ORM\n    \n- JWT Authentication\n    \n- Stripe Payment\n    \n\n## Error Response Format\n\n\\`\\`\\`json  \n{  \n\"success\": false,  \n\"message\": \"Error message\",  \n\"errorDetails\": {}  \n}",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52459423"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"customer\",\r\n  \"email\": \"customer@gmail.com\",\r\n  \"password\": \"customer01\",\r\n  \"role\": \"CUSTOMER\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "## Register User\n\nCreates a new account for the GearUp platform.\n\nUsers can register as:\n\n- CUSTOMER\n    \n- PROVIDER\n    \n- ADMIN\n    \n\n### Request Body\n\n| Field | Type | Required |\n| --- | --- | --- |\n| name | string | ✅ |\n| email | string | ✅ |\n| password | string | ✅ |\n| role | CUSTOMER | PROVIDER | ADMIN | ✅ |\n\n### Success Response\n\n- User account created successfully.\n    \n\n### Possible Errors\n\n- Email already exists\n    \n- Validation failed"
+          },
+          "response": [
+            {
+              "name": "register",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Shahnaz\",\r\n  \"email\": \"shahnaz@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"CUSTOMER\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/register",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "231"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e7-LsX/Go2edmYC9pUsRBgwWmhVrnc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 07:12:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"User registered successfully.\",\n    \"data\": {\n        \"id\": \"f088c9d8-e556-4cfd-a710-d72700c5b20a\",\n        \"name\": \"Shahnaz\",\n        \"email\": \"shahnaz@gmail.com\",\n        \"role\": \"CUSTOMER\",\n        \"status\": \"ACTIVE\",\n        \"createdAt\": \"2026-07-11T07:12:24.285Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"shahnaz@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "## Login User\n\nAuthenticates a user using email and password.\n\nReturns a JWT Access Token.\n\n### Request Body\n\n| Field | Type | Required |\n| --- | --- | --- |\n| email | string | ✅ |\n| password | string | ✅ |\n\n### Success Response\n\nReturns:\n\n- Access Token\n    \n- User Information\n    \n\n### Possible Errors\n\n- Invalid email\n    \n- Invalid password"
+          },
+          "response": [
+            {
+              "name": "login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"shahnaz@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/login",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "325"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"145-JPsPy1ZrSUifKNrvBtlC2YiAiek\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 07:14:43 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Login successful.\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmMDg4YzlkOC1lNTU2LTRjZmQtYTcxMC1kNzI3MDBjNWIyMGEiLCJlbWFpbCI6InNoYWhuYXpAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiaWF0IjoxNzgzNzU0MDgzLCJleHAiOjE3ODQzNTg4ODN9.4KKceCo2m-od4zTCv2Untjd5CfVvOEGE3KhDhbt6hi0\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "current user",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmMDg4YzlkOC1lNTU2LTRjZmQtYTcxMC1kNzI3MDBjNWIyMGEiLCJlbWFpbCI6InNoYWhuYXpAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiaWF0IjoxNzgzNzU0MDgzLCJleHAiOjE3ODQzNTg4ODN9.4KKceCo2m-od4zTCv2Untjd5CfVvOEGE3KhDhbt6hi0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            },
+            "description": "## Current User\n\nReturns the currently authenticated user's information.\n\n### Authorization\n\nBearer Token Required\n\n### Success Response\n\nReturns logged in user information.\n\n### Possible Errors\n\n- Unauthorized\n    \n- Invalid Token"
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/me",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "230"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"e6-1s9AQCKCCq1Sp4+0kKAxIDayfZI\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 07:16:00 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"User retrieved successfully.\",\n    \"data\": {\n        \"id\": \"f088c9d8-e556-4cfd-a710-d72700c5b20a\",\n        \"name\": \"Shahnaz\",\n        \"email\": \"shahnaz@gmail.com\",\n        \"role\": \"CUSTOMER\",\n        \"status\": \"ACTIVE\",\n        \"createdAt\": \"2026-07-11T07:12:24.285Z\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "category",
+      "item": [
+        {
+          "name": "get categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "description": "## Get All Categories\n\nReturns all available sports and outdoor gear categories.\n\n### Authorization\n\nNot Required\n\n### Success Response\n\nReturns a list of categories.\n\nExample Categories\n\n- Camping\n    \n- Cycling\n    \n- Fitness\n    \n- Hiking\n    \n- Water Sports"
+          },
+          "response": [
+            {
+              "name": "get categories",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"camping\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "174"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ae-GuGXvywt8hDCMMRtXb7oe0qsWfs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:26:20 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Categories retrieved successfully.\",\n    \"data\": [\n        {\n            \"id\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n            \"name\": \"camping\",\n            \"createdAt\": \"2026-07-11T08:21:46.901Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "create category",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "create category",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"camping gear\"\r\n  \r\n}\r\n\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "173"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ad-InMRZMl9skj5YKsoWGJIymU1Ydg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:26:50 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Category created successfully.\",\n    \"data\": {\n        \"id\": \"88e660dd-fab4-46c9-bc9a-5d965d918f8e\",\n        \"name\": \"camping gear\",\n        \"createdAt\": \"2026-07-11T08:26:50.185Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "update category",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "update category",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"camping gear\"\r\n\r\n}\r\n\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/categories/fdb3fce2-363c-488d-a8a4-3a9b121e7c59",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "fdb3fce2-363c-488d-a8a4-3a9b121e7c59"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "173"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ad-Qj9brUwhgjHv+aAL7KnwCUcr96U\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:25:18 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Category updated successfully.\",\n    \"data\": {\n        \"id\": \"fdb3fce2-363c-488d-a8a4-3a9b121e7c59\",\n        \"name\": \"camping gear\",\n        \"createdAt\": \"2026-07-11T08:22:34.361Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete category",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "delete category",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/categories/fdb3fce2-363c-488d-a8a4-3a9b121e7c59",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "fdb3fce2-363c-488d-a8a4-3a9b121e7c59"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "59"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3b-T+4ADvvjBi9kbIfbxffdTsJ+SQM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:25:55 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Category deleted successfully.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear",
+      "item": [
+        {
+          "name": "get gear",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/gear",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "gear"
+              ]
+            },
+            "description": "## Get All Gear\n\nReturns all available gear.\n\nSupports filtering.\n\n### Query Parameters\n\n| Parameter | Description |\n| --- | --- |\n| category | Filter by category |\n| brand | Filter by brand |\n| minPrice | Minimum price |\n| maxPrice | Maximum price |\n| available | true / false |\n\n### Authorization\n\nNot Required"
+          },
+          "response": [
+            {
+              "name": "get",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/gear",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "gear"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1189"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4a5-UlsMfptMD3zh6/IpPlfbVBPrt04\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:49:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Gear retrieved successfully.\",\n    \"data\": [\n        {\n            \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n            \"name\": \"gear Bike\",\n            \"description\": \"Great trail bike for all\",\n            \"brand\": null,\n            \"pricePerDay\": 30,\n            \"stock\": 3,\n            \"isAvailable\": true,\n            \"imageUrl\": null,\n            \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n            \"updatedAt\": \"2026-07-11T08:44:44.355Z\",\n            \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n            \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n            \"category\": {\n                \"id\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n                \"name\": \"camping\",\n                \"createdAt\": \"2026-07-11T08:21:46.901Z\"\n            },\n            \"provider\": {\n                \"id\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                \"name\": \"Provider \"\n            }\n        },\n        {\n            \"id\": \"f51a42df-835b-4cc8-83bf-e4c2709c224e\",\n            \"name\": \"Mountain Bike\",\n            \"description\": \"Great trail bike for all terrain riding\",\n            \"brand\": null,\n            \"pricePerDay\": 20,\n            \"stock\": 3,\n            \"isAvailable\": true,\n            \"imageUrl\": null,\n            \"createdAt\": \"2026-07-11T08:44:12.491Z\",\n            \"updatedAt\": \"2026-07-11T08:44:12.491Z\",\n            \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n            \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n            \"category\": {\n                \"id\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n                \"name\": \"camping\",\n                \"createdAt\": \"2026-07-11T08:21:46.901Z\"\n            },\n            \"provider\": {\n                \"id\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                \"name\": \"Provider \"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "create gear",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "create gear",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ \"name\":\"gear Bike\",\"description\":\"Great trail bike for all\",\"pricePerDay\":30,\"stock\":3,\"categoryId\":\"0d002725-6b13-4afb-b2d8-3534ba863f5e\" }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/gear",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "gear"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "423"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1a7-E9Zkz+7GkRkXAAyUzBsyOtFEmmg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:44:44 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Gear added successfully.\",\n    \"data\": {\n        \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n        \"name\": \"gear Bike\",\n        \"description\": \"Great trail bike for all\",\n        \"brand\": null,\n        \"pricePerDay\": 30,\n        \"stock\": 3,\n        \"isAvailable\": true,\n        \"imageUrl\": null,\n        \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n        \"updatedAt\": \"2026-07-11T08:44:44.355Z\",\n        \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n        \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get by id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NDEwYThhOC00NjliLTQxN2ItOGFjZi0zZjQ2OTNmYTA1YzUiLCJlbWFpbCI6InByb3ZpZGVyQGdtYWlsLmNvbSIsInJvbGUiOiJQUk9WSURFUiIsImlhdCI6MTc4Mzc1ODkyMywiZXhwIjoxNzg0MzYzNzIzfQ.LJbnlKdruCBZh6GBIe5AM6QoeyucCayHxgq4Qd1F3Ys",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/gear/{{gearId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "gear",
+                "{{gearId}}"
+              ]
+            },
+            "description": "## Get Gear Details\n\nReturns detailed information about a specific gear item.\n\n### Authorization\n\nNot Required\n\n### URL Parameter\n\nid\n\n### Success Response\n\nReturns complete gear information."
+          },
+          "response": [
+            {
+              "name": "get by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/gear/{{gearId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "gear",
+                    "{{gearId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "624"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"270-/Z/FF7J359nU+uY4QP8/xxB9wN8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:45:59 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Gear details retrieved.\",\n    \"data\": {\n        \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n        \"name\": \"gear Bike\",\n        \"description\": \"Great trail bike for all\",\n        \"brand\": null,\n        \"pricePerDay\": 30,\n        \"stock\": 3,\n        \"isAvailable\": true,\n        \"imageUrl\": null,\n        \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n        \"updatedAt\": \"2026-07-11T08:44:44.355Z\",\n        \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n        \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n        \"category\": {\n            \"id\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n            \"name\": \"camping\",\n            \"createdAt\": \"2026-07-11T08:21:46.901Z\"\n        },\n        \"provider\": {\n            \"id\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n            \"name\": \"Provider \"\n        },\n        \"reviews\": []\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "filtering",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/gear?search=bike&minPrice=10&maxPrice=30",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "gear"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "bike"
+                },
+                {
+                  "key": "minPrice",
+                  "value": "10"
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "30"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "filtering",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/gear?search=bike&minPrice=10&maxPrice=30",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "gear"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "bike"
+                    },
+                    {
+                      "key": "minPrice",
+                      "value": "10"
+                    },
+                    {
+                      "key": "maxPrice",
+                      "value": "30"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1189"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4a5-UlsMfptMD3zh6/IpPlfbVBPrt04\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:46:54 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Gear retrieved successfully.\",\n    \"data\": [\n        {\n            \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n            \"name\": \"gear Bike\",\n            \"description\": \"Great trail bike for all\",\n            \"brand\": null,\n            \"pricePerDay\": 30,\n            \"stock\": 3,\n            \"isAvailable\": true,\n            \"imageUrl\": null,\n            \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n            \"updatedAt\": \"2026-07-11T08:44:44.355Z\",\n            \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n            \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n            \"category\": {\n                \"id\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n                \"name\": \"camping\",\n                \"createdAt\": \"2026-07-11T08:21:46.901Z\"\n            },\n            \"provider\": {\n                \"id\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                \"name\": \"Provider \"\n            }\n        },\n        {\n            \"id\": \"f51a42df-835b-4cc8-83bf-e4c2709c224e\",\n            \"name\": \"Mountain Bike\",\n            \"description\": \"Great trail bike for all terrain riding\",\n            \"brand\": null,\n            \"pricePerDay\": 20,\n            \"stock\": 3,\n            \"isAvailable\": true,\n            \"imageUrl\": null,\n            \"createdAt\": \"2026-07-11T08:44:12.491Z\",\n            \"updatedAt\": \"2026-07-11T08:44:12.491Z\",\n            \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n            \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n            \"category\": {\n                \"id\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n                \"name\": \"camping\",\n                \"createdAt\": \"2026-07-11T08:21:46.901Z\"\n            },\n            \"provider\": {\n                \"id\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                \"name\": \"Provider \"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NDEwYThhOC00NjliLTQxN2ItOGFjZi0zZjQ2OTNmYTA1YzUiLCJlbWFpbCI6InByb3ZpZGVyQGdtYWlsLmNvbSIsInJvbGUiOiJQUk9WSURFUiIsImlhdCI6MTc4Mzc1ODkyMywiZXhwIjoxNzg0MzYzNzIzfQ.LJbnlKdruCBZh6GBIe5AM6QoeyucCayHxgq4Qd1F3Ys",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"stock\": 10}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/gear/{{gearId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "gear",
+                "{{gearId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"stock\": 10}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/gear/{{gearId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "gear",
+                    "{{gearId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "426"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1aa-E4PYetmIikgaU0Ru672fGT7KIKY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 08:50:03 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Gear updated successfully.\",\n    \"data\": {\n        \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n        \"name\": \"gear Bike\",\n        \"description\": \"Great trail bike for all\",\n        \"brand\": null,\n        \"pricePerDay\": 30,\n        \"stock\": 10,\n        \"isAvailable\": true,\n        \"imageUrl\": null,\n        \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n        \"updatedAt\": \"2026-07-11T08:50:03.079Z\",\n        \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n        \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rental",
+      "item": [
+        {
+          "name": "get rentals",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhOTNkZGJkOC0yNzUzLTRjMDYtYjNlMC1mYmRjODNkMmVhZDYiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc4Mzc2MDM0NCwiZXhwIjoxNzg0MzY1MTQ0fQ.Pmtg-6YcY2oQg-aPGTT4EIc45AneQaGEwncBL8iMew0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/rentals",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "rentals"
+              ]
+            },
+            "description": "## My Rental Orders\n\nReturns all rental orders of the logged in customer.\n\n### Authorization\n\nCustomer Token Required"
+          },
+          "response": [
+            {
+              "name": "get rentals",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/rentals",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "rentals"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1261"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4ed-EZs1mi6Cnpz36w9o480tkldZI8Y\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 10:38:03 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Your rental orders retrieved.\",\n    \"data\": [\n        {\n            \"id\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n            \"status\": \"RETURNED\",\n            \"startDate\": \"2026-07-15T00:00:00.000Z\",\n            \"endDate\": \"2026-07-18T00:00:00.000Z\",\n            \"totalAmount\": 90,\n            \"createdAt\": \"2026-07-11T09:04:55.862Z\",\n            \"updatedAt\": \"2026-07-11T10:34:12.929Z\",\n            \"customerId\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n            \"items\": [\n                {\n                    \"id\": \"8bbc3d86-26cc-4011-9744-9ec4b05c96bd\",\n                    \"quantity\": 1,\n                    \"price\": 90,\n                    \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n                    \"gearItemId\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n                    \"gearItem\": {\n                        \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n                        \"name\": \"gear Bike\",\n                        \"description\": \"Great trail bike for all\",\n                        \"brand\": null,\n                        \"pricePerDay\": 30,\n                        \"stock\": 10,\n                        \"isAvailable\": true,\n                        \"imageUrl\": null,\n                        \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n                        \"updatedAt\": \"2026-07-11T08:50:03.079Z\",\n                        \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                        \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\"\n                    }\n                }\n            ],\n            \"payment\": {\n                \"id\": \"e0deef4c-5209-4437-b769-90948f580964\",\n                \"amount\": 90,\n                \"transactionId\": \"cs_test_a1eNT0noo73Ru5lq9nKWIsaO1p0FV7qdm7NUbnjFcTtkWU4eREBXHpPHmz\",\n                \"status\": \"COMPLETED\",\n                \"paidAt\": \"2026-07-11T09:31:16.177Z\",\n                \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n                \"createdAt\": \"2026-07-11T09:24:25.014Z\",\n                \"updatedAt\": \"2026-07-11T09:31:16.462Z\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "post",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ \"startDate\": \"2026-07-15\", \"endDate\": \"2026-07-18\", \"items\": [{ \"gearItemId\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\", \"quantity\": 1 }] }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/rentals",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "rentals"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "918"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"396-8czJcf1g1VfHC5NvSZ/hSqQcUb4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 09:04:57 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Rental order placed successfully.\",\n    \"data\": {\n        \"id\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n        \"status\": \"PLACED\",\n        \"startDate\": \"2026-07-15T00:00:00.000Z\",\n        \"endDate\": \"2026-07-18T00:00:00.000Z\",\n        \"totalAmount\": 90,\n        \"createdAt\": \"2026-07-11T09:04:55.862Z\",\n        \"updatedAt\": \"2026-07-11T09:04:55.862Z\",\n        \"customerId\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n        \"items\": [\n            {\n                \"id\": \"8bbc3d86-26cc-4011-9744-9ec4b05c96bd\",\n                \"quantity\": 1,\n                \"price\": 90,\n                \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n                \"gearItemId\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n                \"gearItem\": {\n                    \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n                    \"name\": \"gear Bike\",\n                    \"description\": \"Great trail bike for all\",\n                    \"brand\": null,\n                    \"pricePerDay\": 30,\n                    \"stock\": 10,\n                    \"isAvailable\": true,\n                    \"imageUrl\": null,\n                    \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n                    \"updatedAt\": \"2026-07-11T08:50:03.079Z\",\n                    \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                    \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\"\n                }\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "provider get order",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NDEwYThhOC00NjliLTQxN2ItOGFjZi0zZjQ2OTNmYTA1YzUiLCJlbWFpbCI6InByb3ZpZGVyQGdtYWlsLmNvbSIsInJvbGUiOiJQUk9WSURFUiIsImlhdCI6MTc4Mzc2MDc5MiwiZXhwIjoxNzg0MzY1NTkyfQ.5ikAx2D5bkoS4NUJ068SAuTpzi58ILMXPkuCmMU7tso",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/rentals/provider/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "rentals",
+                "provider",
+                "orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/rentals/provider/orders",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "rentals",
+                    "provider",
+                    "orders"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1017"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3f9-yJE0oeUNL/pD43go6KhzX4WwraU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 09:07:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Incoming orders retrieved.\",\n    \"data\": [\n        {\n            \"id\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n            \"status\": \"PLACED\",\n            \"startDate\": \"2026-07-15T00:00:00.000Z\",\n            \"endDate\": \"2026-07-18T00:00:00.000Z\",\n            \"totalAmount\": 90,\n            \"createdAt\": \"2026-07-11T09:04:55.862Z\",\n            \"updatedAt\": \"2026-07-11T09:04:55.862Z\",\n            \"customerId\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n            \"items\": [\n                {\n                    \"id\": \"8bbc3d86-26cc-4011-9744-9ec4b05c96bd\",\n                    \"quantity\": 1,\n                    \"price\": 90,\n                    \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n                    \"gearItemId\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n                    \"gearItem\": {\n                        \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n                        \"name\": \"gear Bike\",\n                        \"description\": \"Great trail bike for all\",\n                        \"brand\": null,\n                        \"pricePerDay\": 30,\n                        \"stock\": 10,\n                        \"isAvailable\": true,\n                        \"imageUrl\": null,\n                        \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n                        \"updatedAt\": \"2026-07-11T08:50:03.079Z\",\n                        \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                        \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\"\n                    }\n                }\n            ],\n            \"customer\": {\n                \"id\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n                \"name\": \"customer\",\n                \"email\": \"customer@gmail.com\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NDEwYThhOC00NjliLTQxN2ItOGFjZi0zZjQ2OTNmYTA1YzUiLCJlbWFpbCI6InByb3ZpZGVyQGdtYWlsLmNvbSIsInJvbGUiOiJQUk9WSURFUiIsImlhdCI6MTc4Mzc2MDc5MiwiZXhwIjoxNzg0MzY1NTkyfQ.5ikAx2D5bkoS4NUJ068SAuTpzi58ILMXPkuCmMU7tso",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " { \"status\": \"CONFIRMED\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/rentals/provider/orders/55d50537-f39e-4936-8557-1964a44ae026",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "rentals",
+                "provider",
+                "orders",
+                "55d50537-f39e-4936-8557-1964a44ae026"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "update",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{ \"status\": \"RETURNED\" }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/rentals/provider/orders/{{rentalId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "rentals",
+                    "provider",
+                    "orders",
+                    "{{rentalId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "346"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"15a-4TszvGCoz7o8BNDMz626O/HxiNE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 10:34:13 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Order status updated.\",\n    \"data\": {\n        \"id\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n        \"status\": \"RETURNED\",\n        \"startDate\": \"2026-07-15T00:00:00.000Z\",\n        \"endDate\": \"2026-07-18T00:00:00.000Z\",\n        \"totalAmount\": 90,\n        \"createdAt\": \"2026-07-11T09:04:55.862Z\",\n        \"updatedAt\": \"2026-07-11T10:34:12.929Z\",\n        \"customerId\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get by id",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "get by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/rentals/{{rentalId}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "rentals",
+                    "{{rentalId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1358"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"54e-tuNYzz1xHP1ik8HPFclyc3H4q50\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 09:37:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Rental order retrieved.\",\n    \"data\": {\n        \"id\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n        \"status\": \"CONFIRMED\",\n        \"startDate\": \"2026-07-15T00:00:00.000Z\",\n        \"endDate\": \"2026-07-18T00:00:00.000Z\",\n        \"totalAmount\": 90,\n        \"createdAt\": \"2026-07-11T09:04:55.862Z\",\n        \"updatedAt\": \"2026-07-11T09:35:09.535Z\",\n        \"customerId\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n        \"items\": [\n            {\n                \"id\": \"8bbc3d86-26cc-4011-9744-9ec4b05c96bd\",\n                \"quantity\": 1,\n                \"price\": 90,\n                \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n                \"gearItemId\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n                \"gearItem\": {\n                    \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n                    \"name\": \"gear Bike\",\n                    \"description\": \"Great trail bike for all\",\n                    \"brand\": null,\n                    \"pricePerDay\": 30,\n                    \"stock\": 10,\n                    \"isAvailable\": true,\n                    \"imageUrl\": null,\n                    \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n                    \"updatedAt\": \"2026-07-11T08:50:03.079Z\",\n                    \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                    \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\"\n                }\n            }\n        ],\n        \"payment\": {\n            \"id\": \"e0deef4c-5209-4437-b769-90948f580964\",\n            \"amount\": 90,\n            \"transactionId\": \"cs_test_a1eNT0noo73Ru5lq9nKWIsaO1p0FV7qdm7NUbnjFcTtkWU4eREBXHpPHmz\",\n            \"status\": \"COMPLETED\",\n            \"paidAt\": \"2026-07-11T09:31:16.177Z\",\n            \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n            \"createdAt\": \"2026-07-11T09:24:25.014Z\",\n            \"updatedAt\": \"2026-07-11T09:31:16.462Z\"\n        },\n        \"customer\": {\n            \"id\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n            \"name\": \"customer\",\n            \"email\": \"customer@gmail.com\"\n        }\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "review",
+      "item": [
+        {
+          "name": "post review",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhOTNkZGJkOC0yNzUzLTRjMDYtYjNlMC1mYmRjODNkMmVhZDYiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc4Mzc2MDM0NCwiZXhwIjoxNzg0MzY1MTQ0fQ.Pmtg-6YcY2oQg-aPGTT4EIc45AneQaGEwncBL8iMew0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " { \"gearItemId\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\", \"rating\": 5, \"comment\": \"Great bike, smooth ride!\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/reviews",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "create payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhOTNkZGJkOC0yNzUzLTRjMDYtYjNlMC1mYmRjODNkMmVhZDYiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc4Mzc2MTUxOSwiZXhwIjoxNzg0MzY2MzE5fQ.fKXcjWGayjlVWUH2ZqCwLBBKslX8gtmwzc36hyraDWE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhOTNkZGJkOC0yNzUzLTRjMDYtYjNlMC1mYmRjODNkMmVhZDYiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc4Mzc2MTUxOSwiZXhwIjoxNzg0MzY2MzE5fQ.fKXcjWGayjlVWUH2ZqCwLBBKslX8gtmwzc36hyraDWE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " { \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/payments/create",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "create"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "create payment",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhOTNkZGJkOC0yNzUzLTRjMDYtYjNlMC1mYmRjODNkMmVhZDYiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc4Mzc2MTUxOSwiZXhwIjoxNzg0MzY2MzE5fQ.fKXcjWGayjlVWUH2ZqCwLBBKslX8gtmwzc36hyraDWE",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": " { \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\" }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/payments/create",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments",
+                    "create"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "886"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"376-FajwxBgzSAoNXqokxkMOvPY8ClY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 09:24:25 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Payment session created successfully.\",\n    \"data\": {\n        \"checkoutUrl\": \"https://checkout.stripe.com/c/pay/cs_test_a1eNT0noo73Ru5lq9nKWIsaO1p0FV7qdm7NUbnjFcTtkWU4eREBXHpPHmz#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWnFgdnFaMDRXdEZmf1VhZnRCVn98d0F9NmE0PHR9aGJSVHZQZGhiTjNkNGwyb05VaUtnX2RLaH1AdzFcPEZiZDB2Tnw8S1FpalFUfURvdEhwdTBmT2dpYXdySTRndlY1NW1JM1Ndcm1%2FJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJmNjY2NjYycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl\",\n        \"payment\": {\n            \"id\": \"e0deef4c-5209-4437-b769-90948f580964\",\n            \"amount\": 90,\n            \"transactionId\": \"cs_test_a1eNT0noo73Ru5lq9nKWIsaO1p0FV7qdm7NUbnjFcTtkWU4eREBXHpPHmz\",\n            \"status\": \"PENDING\",\n            \"paidAt\": null,\n            \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n            \"createdAt\": \"2026-07-11T09:24:25.014Z\",\n            \"updatedAt\": \"2026-07-11T09:24:25.014Z\"\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "cofirme payment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhOTNkZGJkOC0yNzUzLTRjMDYtYjNlMC1mYmRjODNkMmVhZDYiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc4Mzc2MTUxOSwiZXhwIjoxNzg0MzY2MzE5fQ.fKXcjWGayjlVWUH2ZqCwLBBKslX8gtmwzc36hyraDWE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhOTNkZGJkOC0yNzUzLTRjMDYtYjNlMC1mYmRjODNkMmVhZDYiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc4Mzc2MTUxOSwiZXhwIjoxNzg0MzY2MzE5fQ.fKXcjWGayjlVWUH2ZqCwLBBKslX8gtmwzc36hyraDWE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " { \"sessionId\": \"cs_test_a1eNT0noo73Ru5lq9nKWIsaO1p0FV7qdm7NUbnjFcTtkWU4eREBXHpPHmz\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/payments/confirm",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "confirm"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhOTNkZGJkOC0yNzUzLTRjMDYtYjNlMC1mYmRjODNkMmVhZDYiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc4Mzc2MTUxOSwiZXhwIjoxNzg0MzY2MzE5fQ.fKXcjWGayjlVWUH2ZqCwLBBKslX8gtmwzc36hyraDWE",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": " { \"sessionId\": \"cs_test_a1eNT0noo73Ru5lq9nKWIsaO1p0FV7qdm7NUbnjFcTtkWU4eREBXHpPHmz\" }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/payments/confirm",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments",
+                    "confirm"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "84"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"54-kW93Ne5YGn9YMs397yRUgZDn9Rs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 09:31:17 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Payment status confirmed.\",\n    \"data\": {\n        \"status\": \"COMPLETED\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get history",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "get history",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "payments"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "701"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2bd-y2mtbfCfoFOwKQVUP47l1aBPUKs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 10:14:48 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Payment history retrieved.\",\n    \"data\": [\n        {\n            \"id\": \"e0deef4c-5209-4437-b769-90948f580964\",\n            \"amount\": 90,\n            \"transactionId\": \"cs_test_a1eNT0noo73Ru5lq9nKWIsaO1p0FV7qdm7NUbnjFcTtkWU4eREBXHpPHmz\",\n            \"status\": \"COMPLETED\",\n            \"paidAt\": \"2026-07-11T09:31:16.177Z\",\n            \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n            \"createdAt\": \"2026-07-11T09:24:25.014Z\",\n            \"updatedAt\": \"2026-07-11T09:31:16.462Z\",\n            \"rentalOrder\": {\n                \"id\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n                \"status\": \"CONFIRMED\",\n                \"startDate\": \"2026-07-15T00:00:00.000Z\",\n                \"endDate\": \"2026-07-18T00:00:00.000Z\",\n                \"totalAmount\": 90,\n                \"createdAt\": \"2026-07-11T09:04:55.862Z\",\n                \"updatedAt\": \"2026-07-11T09:35:09.535Z\",\n                \"customerId\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "get all users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjY2E0NTUzZi01OTE5LTQyNGYtOTAwZi1hMTY0MDJlNDI4ZDQiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4Mzc2NzEwMCwiZXhwIjoxNzg0MzcxOTAwfQ.AmXvtuwg_UtpesdNnsg3PgT2s1CX4bm8orzze-efvoI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get all users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/admin/users",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "720"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2d0-oCXiHweXRZtwG84dOUa+OaW0bDM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 10:54:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"All users retrieved.\",\n    \"data\": [\n        {\n            \"id\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n            \"name\": \"customer\",\n            \"email\": \"customer@gmail.com\",\n            \"role\": \"CUSTOMER\",\n            \"status\": \"ACTIVE\",\n            \"createdAt\": \"2026-07-11T08:58:41.501Z\"\n        },\n        {\n            \"id\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n            \"name\": \"Provider \",\n            \"email\": \"provider@gmail.com\",\n            \"role\": \"PROVIDER\",\n            \"status\": \"ACTIVE\",\n            \"createdAt\": \"2026-07-11T08:34:57.650Z\"\n        },\n        {\n            \"id\": \"cca4553f-5919-424f-900f-a16402e428d4\",\n            \"name\": \"admin\",\n            \"email\": \"admin@gmail.com\",\n            \"role\": \"ADMIN\",\n            \"status\": \"ACTIVE\",\n            \"createdAt\": \"2026-07-11T07:41:20.045Z\"\n        },\n        {\n            \"id\": \"f088c9d8-e556-4cfd-a710-d72700c5b20a\",\n            \"name\": \"Shahnaz\",\n            \"email\": \"shahnaz@gmail.com\",\n            \"role\": \"CUSTOMER\",\n            \"status\": \"ACTIVE\",\n            \"createdAt\": \"2026-07-11T07:12:24.285Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "suspand/Activate user",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "all gear",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjY2E0NTUzZi01OTE5LTQyNGYtOTAwZi1hMTY0MDJlNDI4ZDQiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4Mzc2NzEwMCwiZXhwIjoxNzg0MzcxOTAwfQ.AmXvtuwg_UtpesdNnsg3PgT2s1CX4bm8orzze-efvoI",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/gears",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "gears"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "New Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/admin/gear",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "gear"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1190"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4a6-lf8eRlPN1I1SkW3Nyna8tS1KrDE\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 11:02:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"All gear listings retrieved.\",\n    \"data\": [\n        {\n            \"id\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\",\n            \"name\": \"gear Bike\",\n            \"description\": \"Great trail bike for all\",\n            \"brand\": null,\n            \"pricePerDay\": 30,\n            \"stock\": 10,\n            \"isAvailable\": true,\n            \"imageUrl\": null,\n            \"createdAt\": \"2026-07-11T08:44:44.355Z\",\n            \"updatedAt\": \"2026-07-11T08:50:03.079Z\",\n            \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n            \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n            \"provider\": {\n                \"id\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                \"name\": \"Provider \"\n            },\n            \"category\": {\n                \"id\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n                \"name\": \"camping\",\n                \"createdAt\": \"2026-07-11T08:21:46.901Z\"\n            }\n        },\n        {\n            \"id\": \"f51a42df-835b-4cc8-83bf-e4c2709c224e\",\n            \"name\": \"Mountain Bike\",\n            \"description\": \"Great trail bike for all terrain riding\",\n            \"brand\": null,\n            \"pricePerDay\": 20,\n            \"stock\": 3,\n            \"isAvailable\": true,\n            \"imageUrl\": null,\n            \"createdAt\": \"2026-07-11T08:44:12.491Z\",\n            \"updatedAt\": \"2026-07-11T08:44:12.491Z\",\n            \"providerId\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n            \"categoryId\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n            \"provider\": {\n                \"id\": \"7410a8a8-469b-417b-8acf-3f4693fa05c5\",\n                \"name\": \"Provider \"\n            },\n            \"category\": {\n                \"id\": \"0d002725-6b13-4afb-b2d8-3534ba863f5e\",\n                \"name\": \"camping\",\n                \"createdAt\": \"2026-07-11T08:21:46.901Z\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "all rentals",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "all rentals",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/admin/rentals",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "rentals"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "960"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3c0-LRD/8vDFAv0FFm3PjOCI5iOGUMk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 11 Jul 2026 11:04:26 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"All rental orders retrieved.\",\n    \"data\": [\n        {\n            \"id\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n            \"status\": \"RETURNED\",\n            \"startDate\": \"2026-07-15T00:00:00.000Z\",\n            \"endDate\": \"2026-07-18T00:00:00.000Z\",\n            \"totalAmount\": 90,\n            \"createdAt\": \"2026-07-11T09:04:55.862Z\",\n            \"updatedAt\": \"2026-07-11T10:34:12.929Z\",\n            \"customerId\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n            \"customer\": {\n                \"id\": \"a93ddbd8-2753-4c06-b3e0-fbdc83d2ead6\",\n                \"name\": \"customer\"\n            },\n            \"items\": [\n                {\n                    \"id\": \"8bbc3d86-26cc-4011-9744-9ec4b05c96bd\",\n                    \"quantity\": 1,\n                    \"price\": 90,\n                    \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n                    \"gearItemId\": \"15871b71-7dae-4ca3-b448-23e09c606c4b\"\n                }\n            ],\n            \"payment\": {\n                \"id\": \"e0deef4c-5209-4437-b769-90948f580964\",\n                \"amount\": 90,\n                \"transactionId\": \"cs_test_a1eNT0noo73Ru5lq9nKWIsaO1p0FV7qdm7NUbnjFcTtkWU4eREBXHpPHmz\",\n                \"status\": \"COMPLETED\",\n                \"paidAt\": \"2026-07-11T09:31:16.177Z\",\n                \"rentalOrderId\": \"55d50537-f39e-4936-8557-1964a44ae026\",\n                \"createdAt\": \"2026-07-11T09:24:25.014Z\",\n                \"updatedAt\": \"2026-07-11T09:31:16.462Z\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
