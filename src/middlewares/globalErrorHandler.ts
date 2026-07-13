@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import AppError from "../utils/AppError";
 
-const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+const globalErrorHandler = (err: any, req: Request, res: Response) => {
   let statusCode = 500;
   let message = "Something went wrong!";
   let errorDetails: unknown = err;
