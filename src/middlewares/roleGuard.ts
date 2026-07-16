@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import AppError from "../utils/AppError";
-import { UserRole } from "../../generated/prisma/enums";
+import AppError from "../utils/AppError.js";
+import { UserRole } from "../../generated/prisma/enums.js";
 
 
 const roleGuard = (...roles: UserRole[]) => {
