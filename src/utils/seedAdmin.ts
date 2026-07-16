@@ -11,10 +11,7 @@ export async function seedSuperAdmin() {
       },
     });
 
-    if (isAdminExist) {
-      console.log("Super admin Exist!!");
-      return;
-    }
+  
 
     const hashPass = bcrypt.hashSync(
       config.default_admin_password as string,
