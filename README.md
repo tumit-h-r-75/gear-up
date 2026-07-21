@@ -1,67 +1,62 @@
-# GearUp 🏋️ — Backend API
+# 🏋️ GearUp — Backend API
 
 **"Rent Sports & Outdoor Gear Instantly"**
 
-A backend REST API for a sports and outdoor equipment rental platform. Customers browse gear and place rental orders, providers manage inventory and fulfill orders, and admins oversee the whole platform.
+GearUp is a robust, production-ready RESTful backend API powering a multi-tier sports and outdoor equipment rental platform. It supports a full ecommerce workflow across three user roles: **Customers** (browse & rent), **Providers** (manage inventory & fulfillment), and **Admins** (platform oversight).
 
 ---
 
-## 🔗 Live Links
+## 🔗 Quick Links
 
-| Item | Link |
-|---|---|
-| **Live API** | https://gear-up-backend-drab.vercel.app |
-| **API Documentation (Postman)** | *https://documenter.getpostman.com/view/52459423/2sBY4LS2iJ* |
+* 🚀 **Live API:** [https://gear-up-backend-drab.vercel.app](https://gear-up-backend-drab.vercel.app)
+* 📚 **API Documentation:** [Postman Collection Workspace](https://documenter.getpostman.com/view/52459423/2sBY4LS2iJ)
 
-> ⚠️ Render's free tier spins down after inactivity. The first request after idle may take 30-60 seconds to respond — this is expected.
 
 ---
 
-## 🔑 Admin Credentials
+## 🔑 Demo Admin Credentials
 
-```
-Email: admin@gmail.com
-Password: admin123
-
-```
+> **Email:** `admin@gmail.com`  
+> **Password:** `admin123`
 
 ---
 
-## 🧰 Tech Stack
+## 🧰 Tech Stack & Architecture
 
 | Technology | Purpose |
 |---|---|
-| Node.js + Express 5 | REST API framework |
-| TypeScript (ESM) | Type safety |
-| PostgreSQL (Neon) | Database |
-| Prisma ORM 7 | Database access layer (multi-file schema) |
-| JWT (jsonwebtoken) | Authentication |
-| bcryptjs | Password hashing |
-| Stripe | Payment processing |
-| Render | Deployment |
+| **Node.js + Express 5** | Core REST API framework |
+| **TypeScript (ESM)** | Strict end-to-end type safety |
+| **PostgreSQL (Neon)** | Serverless database |
+| **Prisma ORM 7** | Multi-file schema database layer |
+| **JWT & bcryptjs** | Authentication & secure password hashing |
+| **Stripe Node SDK** | Payment processing & checkout flow |
+| **Render** | Cloud hosting & deployment |
 
 ---
 
-## 👥 Roles & Permissions
+## 👥 Roles & Permissions Matrix
 
-| Role | Key Permissions |
+| Role | Operational Scope |
 |---|---|
-| **Customer** | Browse gear, place rental orders, pay via Stripe, track order status, leave reviews |
-| **Provider** | Add/edit/delete gear, view incoming orders, update order status |
-| **Admin** | View/suspend users, manage categories, view all gear and orders platform-wide |
+| 🛒 **Customer** | Browse catalog, create rental orders, process Stripe payments, track orders, leave gear reviews. |
+| 📦 **Provider** | List & manage owned gear inventory, track incoming rental requests, update fulfillment status. |
+| 🛡️ **Admin** | Manage users/status, oversee categories, system-wide visibility over all listings, rentals, and payments. |
 
-Users choose their role (`CUSTOMER` or `PROVIDER`) at registration. Admin accounts are created only via the seed script.
+*Note: User roles (`CUSTOMER` or `PROVIDER`) are selected at registration. Admin accounts are provisioned securely via database seeding.*
 
 ---
 
 ## 📁 Project Structure
 
-```
+The project uses a feature-based modular design. Each domain module strictly adheres to a clean separation of concerns using a **4-file architectural pattern**: `*.interface.ts`, `*.service.ts`, `*.controller.ts`, and `*.routes.ts`.
+
+```text
 gear-up-backend/
 ├── prisma/
 │   ├── migrations/
-│   ├── schema/              # multi-file Prisma schema
-│   │   ├── schema.prisma    # generator + datasource
+│   ├── schema/              # Multi-file Prisma schema structure
+│   │   ├── schema.prisma    # Generator & Datasource
 │   │   ├── enums.prisma
 │   │   ├── user.prisma
 │   │   ├── category.prisma
@@ -69,12 +64,11 @@ gear-up-backend/
 │   │   ├── rental.prisma
 │   │   ├── payment.prisma
 │   │   └── review.prisma
-│   └── seed.ts
+│   └── seed.ts              # System seed script (Admins & initial categories)
 ├── src/
-│   ├── config/               # env config loader
-│   ├── generated/prisma/     # Prisma client (generated, gitignored)
-│   ├── lib/                  # prisma client, stripe client
-│   ├── middlewares/          # auth, roleGuard, error handling
+│   ├── config/              # Centralized environment configs
+│   ├── lib/                 # Shared instances (Prisma, Stripe clients)
+│   ├── middlewares/         # Auth, role guard, error handling
 │   ├── modules/
 │   │   ├── auth/
 │   │   ├── category/
@@ -83,102 +77,123 @@ gear-up-backend/
 │   │   ├── payment/
 │   │   ├── review/
 │   │   └── admin/
-│   ├── routes/index.ts       # central route aggregator
-│   ├── app.ts
-│   └── server.ts
+│   ├── routes/              # Centralized route aggregator
+│   ├── app.ts               # Express app configuration
+│   └── server.ts            # Server bootstrap
 ├── prisma.config.ts
 └── package.json
-```
 
-Each module follows the same 4-file pattern: `*.interface.ts`, `*.service.ts`, `*.controller.ts`, `*.routes.ts`.
+```
 
 ---
 
-## ⚙️ Local Setup
+## ⚙️ Local Development Setup
 
-**1. Clone and install**
+### Prerequisites
+
+* **Node.js** `>= 18.x`
+* **PostgreSQL** instance (or a free [Neon](https://neon.tech) database)
+* **Stripe Account** (for test mode API keys)
+
+### Installation Steps
+
+1. **Clone the Repository**
 ```bash
-git clone https://github.com/<your-username>/gear-up-backend.git
+git clone [https://github.com/](https://github.com/)<your-username>/gear-up-backend.git
 cd gear-up-backend
 npm install
+
 ```
 
-**2. Environment variables**
 
-Copy `.env.example` to `.env` and fill in your own values:
-```
+2. **Configure Environment Variables**
+Create a `.env` file in the root directory:
+```env
 PORT=5000
-DATABASE_URL=<Neon pooled connection string>
-DIRECT_URL=<Neon direct connection string>
-JWT_ACCESS_SECRET=<a long random string>
-JWT_ACCESS_EXPIRES_IN=7d
+DATABASE_URL="postgresql://<user>:<password>@<host>/<db>?pgbouncer=true"
+DIRECT_URL="postgresql://<user>:<password>@<host>/<db>"
+
+JWT_ACCESS_SECRET="your_long_random_jwt_secret_key"
+JWT_ACCESS_EXPIRES_IN="7d"
 BCRYPT_SALT_ROUNDS=10
-STRIPE_SECRET_KEY=<your Stripe test secret key>
-CLIENT_SUCCESS_URL=http://localhost:5000/api/payments/success
-CLIENT_CANCEL_URL=http://localhost:5000/api/payments/cancel
+
+STRIPE_SECRET_KEY="sk_test_..."
+CLIENT_SUCCESS_URL="http://localhost:5000/api/payments/success"
+CLIENT_CANCEL_URL="http://localhost:5000/api/payments/cancel"
+
 ```
 
-**3. Database setup**
+
+3. **Run Database Migrations & Seed Data**
 ```bash
 npx prisma migrate dev --name init
 npm run seed
+
 ```
 
-**4. Run the dev server**
+
+4. **Start the Development Server**
 ```bash
 npm run dev
+
 ```
-Server starts at `http://localhost:5000`.
+
+
+The API will be available at `http://localhost:5000/api`.
 
 ---
 
-## 📡 API Overview
+## 📡 API Reference Overview
 
-Base URL (local): `http://localhost:5000/api`
-Base URL (production): `https://gear-up-backend-5b6a.onrender.com/api`
+**Base URLs:**
 
-| Module | Base Path | Notes |
-|---|---|---|
-| Auth | `/auth` | register, login, me |
-| Category | `/categories` | public read, admin write |
-| Gear | `/gear` | public read, provider write (`/gear/provider/mine` for own listings) |
-| Rentals | `/rentals` | customer booking, provider order management (`/rentals/provider/orders`) |
-| Payments | `/payments` | Stripe checkout session, confirmation, history |
-| Reviews | `/reviews` | customer-only, requires a returned rental |
-| Admin | `/admin` | users, gear, rentals oversight |
+* Local: `http://localhost:5000/api`
+* Production: `https://gear-up-backend-drab.vercel.app/api`
 
-Full endpoint list with example requests: see the Postman collection linked above.
+| Module | Route Endpoint | Access | Functionality |
+| --- | --- | --- | --- |
+| **Auth** | `/auth` | Public | Registration, Login, User profile (`/me`) |
+| **Category** | `/categories` | Public / Admin | Browse categories; Admin write/update |
+| **Gear** | `/gear` | Public / Provider | Browse gear; Providers manage listings (`/gear/provider/mine`) |
+| **Rentals** | `/rentals` | Customer / Provider | Book rentals; Providers manage incoming requests (`/rentals/provider/orders`) |
+| **Payments** | `/payments` | Customer | Stripe checkout sessions, confirmation callbacks, payment history |
+| **Reviews** | `/reviews` | Customer | Post-rental ratings & feedback (Requires completed rental) |
+| **Admin** | `/admin` | Admin Only | User suspension, platform-wide rentals & gear auditing |
+
+*For complete endpoint documentation, sample payload bodies, and headers, view the [Postman Collection](https://documenter.getpostman.com/view/52459423/2sBY4LS2iJ).*
 
 ---
 
-## ✅ Standards Followed
+## 🛡️ Security & Engineering Standards
 
-- **Consistent responses** — every response follows `{ success, message, data }`; every error follows `{ success, message, errorDetails }`.
-- **Input validation** — manual server-side validation on every write endpoint, with descriptive 400 error messages.
-- **Role-based access** — `auth` middleware verifies identity, `roleGuard` middleware restricts by role (`CUSTOMER` / `PROVIDER` / `ADMIN`).
-- **Ownership checks** — providers can only modify their own gear/orders; customers can only view their own orders/payments.
-- **Payment integration** — real Stripe Checkout Sessions (test mode), with payment status tracked in the database (`PENDING` → `COMPLETED`/`FAILED`), and the linked rental order's status updates automatically on successful payment.
+* **Standardized Payload Interface:** All HTTP responses are predictably formatted:
+* Success: `{ success: true, message: string, data: T }`
+* Error: `{ success: false, message: string, errorDetails: unknown }`
+
+
+* **Input Validation:** Strict runtime payload validation across all write actions with standard `400 Bad Request` messages.
+* **Granular Access Control:** JWT-backed middleware verifies identity (`auth`) alongside custom RBAC (`roleGuard`) to strictly enforce role limits (`CUSTOMER`, `PROVIDER`, `ADMIN`).
+* **Strict Ownership Authorization:** Middleware guarantees providers can only mutate gear or orders attached to their workspace, and customers can only query their own transactional records.
+* **Automated Payment Lifecycle:** Integrated Stripe Checkout Session lifecycle where database payment states (`PENDING` → `COMPLETED`/`FAILED`) cascade to automatically update tied rental bookings.
 
 ---
 
 ## 🚀 Deployment
 
-Deployed on **Render** as a Node web service.
+The server is built for deployment on **Render** (or any Node.js container environment).
 
-- **Build command:** `npm install && npx prisma migrate deploy && npm run build`
-- **Start command:** `npm run start`
-- Environment variables configured in Render's dashboard (see list above).
+* **Build Command:** `npm install && npx prisma migrate deploy && npm run build`
+* **Start Command:** `npm run start`
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing & Quality Assurance
 
-All endpoints were manually tested via Postman across all three roles (Customer, Provider, Admin), covering:
-- Successful CRUD operations
-- Role-based access rejections (403)
-- Ownership violations (403)
-- Missing/invalid input (400)
-- Not-found resources (404)
-- Full Stripe payment flow using test card `4242 4242 4242 4242`
+All paths have been validated using Postman across all 3 user roles, covering:
 
-See the linked Postman collection for the full request set with example bodies.
+* Core domain CRUD flows
+* Authorization breaches (Role mismatch `403 Forbidden`)
+* Resource access violations (Un-owned data edits `403 Forbidden`)
+* Validation boundary limits (`400 Bad Request`)
+* Non-existent endpoint/resource targeting (`404 Not Found`)
+* End-to-end payment lifecycle utilizing Stripe Test Cards (`4242 ... 4242`)
